@@ -68,7 +68,9 @@
         }
 
         .strategy-content {
-            display: none;
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 15px;
             background-color: white;
             border: 1px solid var(--border-color);
             border-radius: 0 0 5px 5px;
@@ -242,12 +244,11 @@
             line-height: 1.5;
             white-space: pre-wrap;
             font-size: 14px;
-            max-height: 70vh; /* Limit height to 70% of viewport height */
-            overflow-y: auto; /* Add vertical scrollbar when content overflows */
-            padding-right: 15px; /* Add padding for scrollbar */
+            max-height: 70vh;
+            overflow-y: auto;
+            padding-right: 15px;
         }
 
-        /* Optional: Style the scrollbar for webkit browsers */
         .popup-content::-webkit-scrollbar {
             width: 8px;
         }
@@ -460,13 +461,10 @@
                 </ul>
                 <p><strong>Stories (4 a 5 Stories):</strong></p>
                 <ul>
-                    <li>Conteúdo:
-                        <ul>
-                            <li>Dica do dia sobre gestão financeira.</li>
-                            <li>Contagem regressiva para o curso.</li>
-                            <li>Enquete: "Você tem controle total sobre as finanças da sua empresa?"</li>
-                        </ul>
-                    </li>
+                    <li>Conteúdo:</li>
+                    <li>Dica do dia sobre gestão financeira.</li>
+                    <li>Contagem regressiva para o curso.</li>
+                    <li>Enquete: "Você tem controle total sobre as finanças da sua empresa?"</li>
                     <li>CTA: "Quer transformar a gestão do seu negócio? Inscreva-se na landing page!"</li>
                     <li>Horário: 15h.</li>
                 </ul>
@@ -560,6 +558,53 @@
                         </ul>
                     </li>
                     <li>CTA: "Não perca a última chance de garantir 50% de desconto!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 6 (27/11 - 03/12): Última Chamada</h4>
+                <p><strong>Objetivo:</strong> Reforçar o desconto e maximizar a conversão.</p>
+
+                <h5>27/11 (segunda-feira)</h5>
+                <p><strong>Post de Urgência (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Imagem impactante.</li>
+                    <li>Conteúdo: "Aproveite! O desconto de 50% no curso de gestão financeira termina em 3 dias!"</li>
+                    <li>CTA: "Inscreva-se agora [Link na bio]."</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories:</strong></p>
+                <ul>
+                    <li>Conteúdo: Lembrete sobre o desconto de 50% e contagem regressiva.</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 7 (04/12 - 06/12): Encerramento do Desconto</h4>
+                <p><strong>Objetivo:</strong> Fazer a última chamada para inscrições e encerrar a campanha.</p>
+
+                <h5>04/12 (quarta-feira)</h5>
+                <p><strong>Post de Última Chamada (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Imagem impactante.</li>
+                    <li>Conteúdo: "Última chance! O desconto de 50% no curso de gestão financeira se encerra amanhã!"</li>
+                    <li>CTA: "Inscreva-se agora [Link na bio]."</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories:</strong></p>
+                <ul>
+                    <li>Conteúdo: Lembrete final sobre o desconto.</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+                <h5>06/12 (sexta-feira)</h5>
+                <p><strong>Post de Encerramento (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Imagem.</li>
+                    <li>Conteúdo: "As inscrições com desconto de 50% estão encerradas! Agradecemos a todos que se inscreveram. Fiquem ligados para novidades!"</li>
+                    <li>CTA: "Continue acompanhando nossas redes para mais dicas financeiras."</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories:</strong></p>
+                <ul>
+                    <li>Conteúdo: Agradecimento aos inscritos. Teaser sobre o que vem a seguir.</li>
                     <li>Horário: 15h.</li>
                 </ul>
             </div>
@@ -754,17 +799,17 @@
             const button = document.createElement('button');
             button.className = 'popup-button';
             const icon = document.createElement('i');
-            
+
             const popupNumber = getNextUniqueNumber();
-            
+
             if (type === 'WhatsApp') {
                 icon.className = 'fab fa-whatsapp';
             } else if (type === 'Redes Sociais') {
                 icon.className = 'fab fa-instagram';
             }
-            
+
             button.dataset.popupNumber = popupNumber;
-            
+
             button.appendChild(icon);
             button.onclick = () => openPopup(type, date, popupNumber);
             return button;
@@ -774,9 +819,9 @@
             const popup = document.getElementById('popup');
             const popupTitle = document.getElementById('popup-title');
             const displayType = type === 'Redes Sociais' ? 'Instagram' : type;
-            
+
             popupTitle.textContent = `${displayType} #${popupNumber}`;
-            
+
             // Add content div if it doesn't exist
             let popupContent = popup.querySelector('.popup-content');
             if (!popupContent) {
@@ -787,11 +832,6 @@
 
             // Define WhatsApp content mapping
             const whatsappContent = {
-                1: `23/10 (Dia 1):<br>
-                    Enviar Mensagem de Boas-vindas:<br>
-                    "Bem-vindo(a) ao grupo! Prepare-se para dicas valiosas sobre gestão financeira. O lançamento do curso está chegando, com 50% de desconto! Fique ligado(a)!"<br><br>
-                    Enviar Conteúdo Inicial:<br>
-                    Texto sobre os benefícios do curso: "Você sente que as finanças da sua empresa estão desorganizadas? Neste curso, vou te ajudar a ter controle total para crescer com segurança."`,
                 2: `24/10 (Dia 2):<br>
                     Enviar Dica Diária:<br>
                     "Você sabia que uma precificação correta pode aumentar seu lucro? No curso, vou te ensinar a calcular o preço certo!"<br><br>
@@ -892,7 +932,7 @@
                     "Falta 1 semana para o lançamento! O desconto de 50% será revelado no dia do lançamento. Não perca essa chance! [Link para LP]."`,
                 79: `01/12 (Dia 31):<br>
                     Enviar Contagem Regressiva:<br>
-                    "Atenção! Faltam apenas 3 dias para o lançamento! Prepare-se para o desconto!"`,
+                    "Atenção! Faltam apenas 3 dias para o lançamento! Prepare-se!"`,
                 81: `02/12 (Dia 32):<br>
                     Enviar Contagem Regressiva:<br>
                     "Faltam apenas 2 dias para o lançamento! Estão prontos?"`,
@@ -912,54 +952,175 @@
 
             // Define Instagram content mapping
             const instagramContent = {
-                2: `23/10<br>
-                    Post de Apresentação do Curso (Feed):<br>
+                2: `23/10 Post de Apresentação do Curso (Feed):<br>
                     Formato: Carrossel de imagens.<br>
                     Conteúdo: Principais tópicos do curso (gestão financeira, precificação e giro de estoque).<br>
                     CTA: "Quer transformar as finanças do seu negócio? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]."<br>
                     Horário: 11h.<br><br>
                     Stories (4 a 5 Stories):<br>
                     Conteúdo:<br>
-                    Dica do dia sobre gestão financeira.<br>
-                    Contagem regressiva para o curso.<br>
-                    Enquete: "Você tem controle total sobre as finanças da sua empresa?"<br>
+                    - Dica do dia sobre gestão financeira.<br>
+                    - Contagem regressiva para o curso.<br>
+                    - Enquete: "Você tem controle total sobre as finanças da sua empresa?"<br>
                     CTA: "Quer transformar a gestão do seu negócio? Inscreva-se na landing page!"<br>
                     Horário: 15h.`,
-                6: `25/10<br>
-                    Vídeo Curto de Simone (Reels):<br>
+                6: `25/10 Vídeo Curto de Simone (Reels):<br>
                     Formato: 30 segundos.<br>
                     Conteúdo: Importância de dominar as finanças empresariais.<br>
                     CTA: "Inscreva-se na landing page e descubra como garantir 50% de desconto no dia do lançamento [Link na bio]!"<br>
                     Horário: 11h.<br><br>
                     Stories (4 a 5 Stories):<br>
                     Conteúdo:<br>
-                    Dica do dia.<br>
-                    Contagem regressiva.<br>
-                    Enquete: "Você sabia que precificação correta é crucial para o sucesso do seu negócio?"<br>
+                    - Dica do dia.<br>
+                    - Contagem regressiva.<br>
+                    - Enquete: "Você sabia que precificação correta é crucial para o sucesso do seu negócio?"<br>
                     Horário: 15h.`,
-                10: `27/10<br>
-                    Post de Prova Social (Feed):<br>
-                    Formato: Depoimento de cliente.<br>
-                    Conteúdo: Resultados positivos de um cliente.<br>
-                    CTA: "Quer alcançar resultados como esse? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]!"<br>
-                    Horário: 11h.<br><br>
-                    Stories (4 a 5 Stories):<br>
-                    Conteúdo:<br>
-                    Lembrete sobre a inscrição na landing page.<br>
-                    Enquete: "Você gostaria de receber dicas financeiras semanais?"<br>
-                    Horário: 15h.`,
-                // Continue with all other Instagram content mappings...
-                90: `06/12<br>
-                    Post de Encerramento (Feed):<br>
-                    Formato: Imagem.<br>
-                    Conteúdo: "As inscrições com desconto de 50% estão encerradas! Agradecemos a todos que se inscreveram. Fiquem ligados para novidades!"<br>
-                    CTA: "Continue acompanhando nossas redes para mais dicas financeiras."<br>
-                    Horário: 11h.<br><br>
-                    Stories:<br>
-                    Conteúdo:<br>
-                    Agradecimento aos inscritos.<br>
-                    Teaser sobre o que vem a seguir.<br>
-                    Horário: 15h.`
+                10: `27/10 Post de Prova Social (Feed):<br>
+                     Formato: Depoimento de cliente.<br>
+                     Conteúdo: Resultados positivos de um cliente.<br>
+                     CTA: "Quer alcançar resultados como esse? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories (4 a 5 Stories):<br>
+                     Conteúdo:<br>
+                     - Lembrete sobre a inscrição na landing page.<br>
+                     - Enquete: "Você gostaria de receber dicas financeiras semanais?"<br>
+                     Horário: 15h.`,
+                16: `30/10 Post Educacional (Feed):<br>
+                     Formato: Carrossel informativo.<br>
+                     Conteúdo: "5 erros que todo empreendedor comete na gestão financeira e como evitá-los."<br>
+                     CTA: "Quer aprender como evitar esses erros? Inscreva-se na landing page e descubra o desconto especial no dia do lançamento [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Enquetes sobre erros financeiros.<br>
+                     - Contagem regressiva para o lançamento.<br>
+                     Horário: 15h.`,
+                20: `01/11 Vídeo de Simone (Reels):<br>
+                     Formato: 30-45 segundos.<br>
+                     Conteúdo: Como precificar produtos/serviços corretamente.<br>
+                     CTA: "Precificação errada pode custar caro. Descubra como corrigir isso e acesse o desconto de 50% no dia do lançamento [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Lembrete sobre a inscrição na landing page.<br>
+                     - Dica financeira do dia.<br>
+                     Horário: 15h.`,
+                24: `03/11 Post de Curiosidade (Feed):<br>
+                     Formato: Imagem ou carrossel.<br>
+                     Conteúdo: "Você está preparado para transformar a gestão financeira do seu negócio? Um grande desconto de 50% será revelado no dia do lançamento!"<br>
+                     CTA: "Não perca essa oportunidade! Inscreva-se na landing page [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Pergunta sobre a preparação dos seguidores para o curso.<br>
+                     Horário: 15h.`,
+                30: `06/11 Post de Depoimento de Aluno (Feed):<br>
+                     Formato: Vídeo curto ou imagem.<br>
+                     Conteúdo: Comentários de alunos sobre o impacto positivo.<br>
+                     CTA: "Quer ter esses resultados? O desconto de 50% do curso será revelado no dia do lançamento. Inscreva-se na landing page para garantir seu desconto [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Dica financeira diária.<br>
+                     - Enquete: "Como o curso vai me ajudar?"<br>
+                     Horário: 15h.`,
+                34: `08/11 Vídeo Curto de Simone (Reels):<br>
+                     Formato: 30-45 segundos.<br>
+                     Conteúdo: Dica rápida sobre como o controle do giro de estoque pode aumentar a lucratividade.<br>
+                     CTA: "Aprenda a dominar suas finanças e descubra o desconto de 50% no dia do lançamento. Inscreva-se na landing page [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Perguntas frequentes sobre o curso.<br>
+                     - Contagem regressiva.<br>
+                     Horário: 15h.`,
+                38: `10/11 Post de Suspense (Feed):<br>
+                     Formato: Imagem com legenda.<br>
+                     Conteúdo: "O desconto de 50% está chegando… Não perca a chance de transformar as finanças da sua empresa."<br>
+                     CTA: "Inscreva-se na landing page agora e aproveite [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Lembrete sobre a inscrição na landing page.<br>
+                     Horário: 15h.`,
+                44: `13/11 Post de Testemunho (Feed):<br>
+                     Formato: Vídeo ou imagem de depoimento.<br>
+                     Conteúdo: "Descubra como a Simone Kida ajudou outros empreendedores a alcançarem seus objetivos financeiros."<br>
+                     CTA: "Garanta sua vaga com o desconto de 50%! Acesse a landing page [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Dica financeira do dia.<br>
+                     - Enquete sobre expectativas do curso.<br>
+                     Horário: 15h.`,
+                48: `15/11 Vídeo Curto de Simone (Reels):<br>
+                     Formato: 30-45 segundos.<br>
+                     Conteúdo: Importância de ter um plano financeiro estruturado.<br>
+                     CTA: "Quer aprender como planejar suas finanças? O desconto de 50% será revelado no dia do lançamento! Garanta sua vaga na landing page [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Perguntas frequentes sobre o curso.<br>
+                     - Contagem regressiva.<br>
+                     Horário: 15h.`,
+                52: `17/11 Post de Curiosidade (Feed):<br>
+                     Formato: Imagem ou carrossel.<br>
+                     Conteúdo: "Você está pronto para transformar suas finanças? O desconto de 50% exclusivo será revelado em breve!"<br>
+                     CTA: "Inscreva-se na landing page para não perder essa oportunidade [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Lembrete sobre a inscrição na landing page.<br>
+                     Horário: 15h.`,
+                58: `20/11 Post de Lançamento (Feed):<br>
+                     Formato: Vídeo de Simone revelando o desconto.<br>
+                     Conteúdo: "O desconto é de 50%! Inscreva-se agora para garantir sua vaga e transformar suas finanças."<br>
+                     CTA: "Acesse a landing page e aproveite [Link na bio]!"<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Contagem regressiva final.<br>
+                     - Lembrete sobre o desconto.<br>
+                     Horário: 15h.`,
+                62: `22/11 Post de Prova Social (Feed):<br>
+                     Formato: Vídeo ou imagem de depoimento.<br>
+                     Conteúdo: "Descubra como a Simone Kida ajudou outros empreendedores a alcançarem seus objetivos financeiros."<br>
+                     CTA: "Garanta sua vaga com o desconto de 50%! Acesse a landing page [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Lembrete sobre o desconto.<br>
+                     Horário: 15h.`,
+                72: `27/11 Post de Urgência (Feed):<br>
+                     Formato: Imagem ou carrossel.<br>
+                     Conteúdo: "Últimos dias para garantir o desconto de 50%! Não perca a oportunidade de transformar suas finanças!"<br>
+                     CTA: "Inscreva-se agora [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Última chamada para a inscrição.<br>
+                     Horário: 15h.`,
+                76: `29/11 Post de Contagem Regressiva (Feed):<br>
+                     Formato: Imagem.<br>
+                     Conteúdo: "Faltam apenas 3 dias para o encerramento do desconto de 50%!"<br>
+                     CTA: "Acesse a landing page e inscreva-se já [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Enquetes sobre expectativas do curso.<br>
+                     Horário: 15h.`,
+                86: `04/12 Post de Última Chamada (Feed):<br>
+                     Formato: Imagem impactante.<br>
+                     Conteúdo: "Última chance! O desconto de 50% no curso de gestão financeira se encerra amanhã!"<br>
+                     CTA: "Inscreva-se agora [Link na bio]."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo: Lembrete final sobre o desconto.<br>
+                     Horário: 15h.`,
+                90: `06/12 Post de Encerramento (Feed):<br>
+                     Formato: Imagem.<br>
+                     Conteúdo: "As inscrições com desconto de 50% estão encerradas! Agradecemos a todos que se inscreveram. Fiquem ligados para novidades!"<br>
+                     CTA: "Continue acompanhando nossas redes para mais dicas financeiras."<br>
+                     Horário: 11h.<br><br>
+                     Stories:<br>
+                     Conteúdo:<br>
+                     - Agradecimento aos inscritos.<br>
+                     - Teaser sobre o que vem a seguir.<br>
+                     Horário: 15h.`
             };
 
             // Modify the content setting section to include Instagram content
