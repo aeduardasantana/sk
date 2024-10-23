@@ -1,0 +1,1013 @@
+<html><head><base href="https://financialmanagement.simonekida.com/"></head>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestão Financeira com Simone Kida</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #008080;
+            --secondary-color: #20B2AA;
+            --background-color: #F0F8FF;
+            --text-color: #333;
+            --border-color: #B0E0E6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.2em;
+            font-weight: bold;
+        }
+
+        h2 {
+            text-align: center;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            font-weight: normal;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--primary-color);
+            margin-top: 30px;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 1.5em;
+            }
+        }
+
+        .strategy-container {
+            margin-bottom: 30px;
+        }
+
+        .strategy-tab {
+            margin-bottom: 10px;
+        }
+
+        .strategy-content {
+            display: none;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 0 0 5px 5px;
+            padding: 15px;
+            margin-top: -5px;
+        }
+
+        .strategy-button {
+            width: 100%;
+            text-align: left;
+            padding: 12px 20px;
+            font-size: 1em;
+            cursor: pointer;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .strategy-button:hover {
+            background-color: var(--secondary-color);
+        }
+
+        .strategy-button:after {
+            content: '\25BC';
+            float: right;
+        }
+
+        .strategy-button.active:after {
+            content: '\25B2';
+        }
+
+        .strategy-button.active {
+            border-radius: 5px 5px 0 0;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 30px;
+        }
+
+        .month-container {
+            background-color: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .month-header {
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .month-header:hover {
+            background-color: var(--primary-color);
+        }
+
+        .month-content {
+            display: none;
+            padding: 15px;
+        }
+
+        .calendar {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 8px;
+        }
+
+        .day {
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            min-height: 80px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            transition: box-shadow 0.3s;
+        }
+
+        .day:hover {
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .day-number {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: var(--primary-color);
+        }
+
+        .popup-button {
+            padding: 8px;
+            margin: 2px 0;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s, transform 0.1s;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .popup-button:hover {
+            background-color: var(--primary-color);
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .popup-button {
+                font-size: 0.9em;
+                width: 25px;
+                height: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .popup-button {
+                font-size: 0.8em;
+                width: 22px;
+                height: 22px;
+            }
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 1000;
+            width: 90%;
+            max-width: 600px;
+        }
+
+        .close-popup {
+            float: right;
+            cursor: pointer;
+            font-size: 24px;
+            color: var(--text-color);
+            transition: color 0.3s;
+        }
+
+        .close-popup:hover {
+            color: var(--primary-color);
+        }
+
+        .popup-content {
+            margin-top: 20px;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            font-size: 14px;
+            max-height: 70vh; /* Limit height to 70% of viewport height */
+            overflow-y: auto; /* Add vertical scrollbar when content overflows */
+            padding-right: 15px; /* Add padding for scrollbar */
+        }
+
+        /* Optional: Style the scrollbar for webkit browsers */
+        .popup-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .popup-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 4px;
+        }
+
+        .popup-content::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 1.8em;
+            }
+
+            h2 {
+                font-size: 1.2em;
+            }
+
+            .strategy-button {
+                padding: 10px 15px;
+                font-size: 0.9em;
+            }
+
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .day {
+                min-height: 60px;
+                padding: 5px;
+            }
+
+            .day-number {
+                font-size: 0.8em;
+            }
+
+            .popup-button {
+                font-size: 0.7em;
+                padding: 3px 6px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .calendar {
+                grid-template-columns: repeat(7, 1fr);
+            }
+
+            .day {
+                min-height: 50px;
+            }
+
+            .popup-button {
+                font-size: 0.6em;
+            }
+        }
+
+        .strategy-content h3, .strategy-content h4, .strategy-content h5 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .strategy-content h3 {
+            font-size: 1.6em;
+        }
+
+        .strategy-content h4 {
+            font-size: 1.4em;
+        }
+
+        .strategy-content h5 {
+            font-size: 1.2em;
+        }
+
+        .strategy-content ul, .strategy-content ol {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .strategy-content li {
+            margin-bottom: 5px;
+        }
+
+        .strategy-content p {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestão Financeira com Simone Kida</h1>
+    <h2>Estratégia de engajamento por: Agência NextWEWB</h2>
+    
+    <div class="strategy-container">
+        <div class="strategy-tab">
+            <button class="strategy-button" onclick="toggleStrategy('macro')">Estratégia Macro</button>
+            <div id="macro-content" class="strategy-content">
+                <h3>Estratégia para Lançamento do Curso "Gestão Financeira com Simone Kida"</h3>
+                <p><strong>Curso:</strong> Gestão Financeira com Simone Kida</p>
+                <p><strong>Período:</strong> 23/10/2024 a 06/12/2024</p>
+
+                <h4>1. Fase 1: Aquisição de Leads (23/10 a 08/11)</h4>
+                <p><strong>Objetivo:</strong> Atrair leads para o grupo de WhatsApp e gerar cadastros na landing page (LP).</p>
+                <h5>Ações para Simone:</h5>
+                <ul>
+                    <li>Vídeos Curtos (Reels e Stories): Criar 3 vídeos autênticos e diretos, abordando:
+                        <ul>
+                            <li>Apresentação do curso e da Simone.</li>
+                            <li>Identificação da dor do público e a solução que o curso oferece.</li>
+                            <li>Convite para o grupo de WhatsApp com promessa de 50% de desconto.</li>
+                        </ul>
+                    </li>
+                </ul>
+                <h5>Ações para Social Media:</h5>
+                <ul>
+                    <li>Agendamento de Postagens: 3 postagens por semana no feed e Stories, com CTAs que direcionem para o grupo de WhatsApp ou a LP.</li>
+                    <li>Conteúdos Visuais: Carrosséis explicativos sobre tópicos do curso.</li>
+                    <li>Stories Diários: Dicas, enquetes e contagem regressiva.</li>
+                </ul>
+                <h5>Grupo de WhatsApp:</h5>
+                <ul>
+                    <li>Boas-vindas e Conteúdos Exclusivos: Mensagens de boas-vindas automáticas e mini conteúdos (ex.: checklist de organização financeira).</li>
+                    <li>Rotina de Envios Programados: Dicas práticas e links para a LP.</li>
+                </ul>
+
+                <h4>2. Fase 2: Nurturing e Engajamento (09/11 a 29/11)</h4>
+                <p><strong>Objetivo:</strong> Aumentar o relacionamento com os leads e demonstrar o valor do curso.</p>
+                <h5>Ações para Simone:</h5>
+                <ul>
+                    <li>Vídeo Semanal: 1 vídeo por semana abordando problemas específicos que o curso resolve.</li>
+                    <li>Exemplo: "Como calcular o giro de estoque".</li>
+                </ul>
+                <h5>Ações para Social Media:</h5>
+                <ul>
+                    <li>Sequência de Postagens Educativas: Carrosséis e Reels mostrando soluções práticas que o curso oferece.</li>
+                    <li>Depoimentos e Casos de Sucesso: Compartilhar resultados positivos de alunos anteriores.</li>
+                </ul>
+                <h5>Grupo de WhatsApp:</h5>
+                <ul>
+                    <li>Envio de Conteúdos Curtos: Vídeos e textos motivacionais, além de dicas semanais.</li>
+                    <li>Interação: Incentivar os membros a compartilharem suas dúvidas e desafios.</li>
+                </ul>
+
+                <h4>3. Fase 3: Lançamento e Fechamento de Vendas (30/11 a 06/12)</h4>
+                <p><strong>Objetivo:</strong> Gerar senso de urgência e maximizar as conversões.</p>
+                <h5>Ações para Simone:</h5>
+                <ul>
+                    <li>Vídeo Final: Mensagem clara sobre o fechamento do curso e a última chance de garantir o desconto.</li>
+                </ul>
+                <h5>Ações para Social Media:</h5>
+                <ul>
+                    <li>Postagens Diárias: Contagem regressiva e ênfase na urgência e escassez do desconto.</li>
+                </ul>
+                <h5>Grupo de WhatsApp:</h5>
+                <ul>
+                    <li>Mensagens de Urgência: Reforçar a contagem regressiva e o desconto especial.</li>
+                    <li>Contato Individual: A equipe deve se conectar diretamente com leads engajados para oferecer suporte.</li>
+                </ul>
+
+                <h4>4. Funções Claras para Simone e Social Media</h4>
+                <h5>Simone Kida:</h5>
+                <ul>
+                    <li>Gravar vídeos e enviar mensagens motivacionais.</li>
+                    <li>Manter canal aberto para dúvidas.</li>
+                </ul>
+                <h5>Social Media:</h5>
+                <ul>
+                    <li>Programar postagens e garantir nutrição constante do grupo de WhatsApp.</li>
+                    <li>Responder dúvidas e gerenciar o engajamento.</li>
+                </ul>
+
+                <h4>5. Calendário Resumido</h4>
+                <ul>
+                    <li><strong>Semana 1 (23/10 - 29/10):</strong> Postagens com vídeos de apresentação e conteúdo educativo.</li>
+                    <li><strong>Semanas 2 e 3 (30/10 - 08/11):</strong> Reels com problemas comuns de gestão financeira e dicas práticas no grupo.</li>
+                    <li><strong>Semanas 4 a 6 (09/11 - 29/11):</strong> Foco em engajamento com provas sociais e conteúdos no WhatsApp.</li>
+                    <li><strong>Semana Final (30/11 - 06/12):</strong> Postagens diárias com contagem regressiva e contatos individuais pelo WhatsApp para conversão.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="strategy-tab">
+            <button class="strategy-button" onclick="toggleStrategy('social')">Estratégia Redes Sociais</button>
+            <div id="social-content" class="strategy-content">
+                <h3>Orientação Detalhada para as Redes Sociais</h3>
+                <p><strong>Período:</strong> 23/10/2024 a 06/12/2024</p>
+                <p><strong>Objetivo:</strong> Engajar os seguidores, educá-los sobre a importância da gestão financeira, criar curiosidade sobre o curso e comunicar o desconto de 50% durante o lançamento.</p>
+
+                <h4>Semana 1 (23/10 - 29/10): Introdução ao Curso e Geração de Curiosidade</h4>
+                <p><strong>Objetivo:</strong> Apresentar o curso "Gestão Financeira com Simone Kida", destacar a autoridade da Simone e gerar curiosidade, incentivando as pessoas a se inscreverem na landing page.</p>
+
+                <h5>23/10 (quarta-feira)</h5>
+                <p><strong>Post de Apresentação do Curso (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Carrossel de imagens.</li>
+                    <li>Conteúdo: Principais tópicos do curso (gestão financeira, precificação e giro de estoque).</li>
+                    <li>CTA: "Quer transformar as finanças do seu negócio? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]."</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories (4 a 5 Stories):</strong></p>
+                <ul>
+                    <li>Conteúdo:
+                        <ul>
+                            <li>Dica do dia sobre gestão financeira.</li>
+                            <li>Contagem regressiva para o curso.</li>
+                            <li>Enquete: "Você tem controle total sobre as finanças da sua empresa?"</li>
+                        </ul>
+                    </li>
+                    <li>CTA: "Quer transformar a gestão do seu negócio? Inscreva-se na landing page!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 2 (30/10 - 05/11): Conexão com o Público</h4>
+                <p><strong>Objetivo:</strong> Fortalecer a conexão com os seguidores e antecipar o valor do curso.</p>
+
+                <h5>30/10 (segunda-feira)</h5>
+                <p><strong>Post de Indagação (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Imagem com pergunta.</li>
+                    <li>Conteúdo: "Qual é a sua maior dificuldade ao gerenciar suas finanças?"</li>
+                    <li>CTA: "Responda nos comentários!"</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories (4 a 5 Stories):</strong></p>
+                <ul>
+                    <li>Conteúdo:
+                        <ul>
+                            <li>Enquete sobre o tema: "Você sabe o que é fluxo de caixa?"</li>
+                            <li>Dicas rápidas sobre gestão financeira.</li>
+                        </ul>
+                    </li>
+                    <li>CTA: "Fique ligado para mais dicas e o lançamento do curso!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 3 (06/11 - 12/11): Aquecimento para o Lançamento</h4>
+                <p><strong>Objetivo:</strong> Intensificar a expectativa do lançamento do curso.</p>
+
+                <h5>06/11 (segunda-feira)</h5>
+                <p><strong>Post de Contagem Regressiva (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Vídeo curto.</li>
+                    <li>Conteúdo: "Faltam apenas 2 semanas para o lançamento do curso!"</li>
+                    <li>CTA: "Não perca!"</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories (4 a 5 Stories):</strong></p>
+                <ul>
+                    <li>Conteúdo:
+                        <ul>
+                            <li>Série de dicas sobre o que aprender no curso.</li>
+                            <li>Opiniões de ex-alunos sobre a importância da gestão financeira.</li>
+                        </ul>
+                    </li>
+                    <li>CTA: "Garanta seu desconto se inscrevendo na landing page!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 4 (13/11 - 19/11): Provas Sociais e Urgência</h4>
+                <p><strong>Objetivo:</strong> Criar provas sociais e reforçar a urgência.</p>
+
+                <h5>13/11 (segunda-feira)</h5>
+                <p><strong>Post de Depoimento (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Imagem com depoimento de ex-aluno.</li>
+                    <li>Conteúdo: "Veja como essa aula mudou a minha forma de gerenciar finanças!"</li>
+                    <li>CTA: "Você pode ser o próximo!"</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories (4 a 5 Stories):</strong></p>
+                <ul>
+                    <li>Conteúdo:
+                        <ul>
+                            <li>Recompartilhamento de feedbacks de ex-alunos.</li>
+                            <li>Contagem regressiva: "Faltam 3 dias para o lançamento!"</li>
+                        </ul>
+                    </li>
+                    <li>CTA: "Participe e transforme suas finanças!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+
+                <h4>Semana 5 (20/11 - 26/11): Lançamento do Curso</h4>
+                <p><strong>Objetivo:</strong> Finalizar as interações e dar início ao lançamento.</p>
+
+                <h5>20/11 (segunda-feira)</h5>
+                <p><strong>Post de Lançamento (Feed):</strong></p>
+                <ul>
+                    <li>Formato: Live no feed.</li>
+                    <li>Conteúdo: "Estamos ao vivo para apresentar o curso e tirar suas dúvidas!"</li>
+                    <li>CTA: "Garanta seu desconto de 50%!"</li>
+                    <li>Horário: 11h.</li>
+                </ul>
+                <p><strong>Stories (4 a 5 Stories):</strong></p>
+                <ul>
+                    <li>Conteúdo:
+                        <ul>
+                            <li>Agradecimentos pela participação no curso.</li>
+                            <li>Apresentação dos detalhes do curso e do desconto final.</li>
+                        </ul>
+                    </li>
+                    <li>CTA: "Não perca a última chance de garantir 50% de desconto!"</li>
+                    <li>Horário: 15h.</li>
+                </ul>
+            </div>
+        </div>
+        <div class="strategy-tab">
+            <button class="strategy-button" onclick="toggleStrategy('whatsapp')">Estratégia WhatsApp</button>
+            <div id="whatsapp-content" class="strategy-content">
+                <h3>Cronograma de Ações Detalhadas no WhatsApp</h3>
+                <p><strong>Período:</strong> 23/10/2024 a 06/12/2024</p>
+                <p><strong>Objetivo:</strong> Nutrir e engajar os leads, gerando conversões durante o lançamento do curso.</p>
+                
+                <h4>Semana 1 (23/10 - 29/10): Boas-vindas e Introdução</h4>
+                <h5>23/10 (Dia 1):</h5>
+                <p><strong>Enviar Mensagem de Boas-vindas:</strong></p>
+                <p>"Bem-vindo(a) ao grupo! Prepare-se para dicas valiosas sobre gestão financeira. O lançamento do curso está chegando, com 50% de desconto! Fique ligado(a)!"</p>
+                <p><strong>Enviar Conteúdo Inicial:</strong></p>
+                <p>Texto sobre os benefícios do curso: "Você sente que as finanças da sua empresa estão desorganizadas? Neste curso, vou te ajudar a ter controle total para crescer com segurança."</p>
+                <h5>24/10 (Dia 2):</h5>
+                <p><strong>Enviar Dica Diária:</strong></p>
+                <p>"Você sabia que uma precificação correta pode aumentar seu lucro? No curso, vou te ensinar a calcular o preço certo!"</p>
+                <p><strong>Incluir CTA:</strong></p>
+                <p>"Quer mais detalhes? Confira o curso completo [link da LP]."</p>
+
+                <h5>25/10 a 29/10:</h5>
+                <p><strong>Enviar Dicas Diárias:</strong></p>
+                <ul>
+                    <li>25/10: "Um bom fluxo de caixa é essencial para o sucesso do seu negócio! Vamos aprender a controlá-lo."</li>
+                    <li>26/10: "Você sabe a diferença entre custo fixo e custo variável? Vamos explorar isso juntos no curso!"</li>
+                    <li>27/10: "A análise de custos pode salvar seu negócio! No curso, ensino como aplicá-la."</li>
+                    <li>28/10: "Você já pensou em ter um planejamento financeiro? Isso pode ser o diferencial do seu negócio."</li>
+                    <li>29/10: "Entender os indicadores financeiros é crucial! Fique atento para aprender sobre eles no curso."</li>
+                </ul>
+
+                <h4>Semanas 2 e 3 (30/10 - 08/11): Introdução ao Conteúdo Prático</h4>
+                <h5>30/10 (Dia 8):</h5>
+                <p><strong>Mensagem Motivacional de Simone:</strong></p>
+                <p>"Estou empolgada para compartilhar ferramentas que ajudaram muitos empreendedores! Vamos juntos nessa jornada!"</p>
+                <p><strong>Checklist:</strong></p>
+                <p>Enviar checklist de organização financeira básica.</p>
+
+                <h5>31/10 a 08/11:</h5>
+                <ul>
+                    <li>31/10: "Você tem controle dos seus custos? Entender isso é essencial para não perder dinheiro."</li>
+                    <li>01/11: Enquete: "Qual é o maior desafio financeiro que você enfrenta hoje na sua empresa?"</li>
+                    <li>02/11: "A gestão de despesas é uma habilidade que você precisa dominar!"</li>
+                    <li>03/11: "O que você precisa saber sobre crédito e financiamento? Fique atento ao curso!"</li>
+                    <li>04/11: Vídeo 1 - "O que é precificação inteligente?"</li>
+                    <li>05/11: Vídeo 2 - "Como o giro de estoque impacta seus lucros?"</li>
+                    <li>06/11: "Dicas de investimento para pequenos empresários."</li>
+                    <li>07/11: "A importância da reserva de emergência para empresas."</li>
+                    <li>08/11: "Como fazer um planejamento financeiro eficiente."</li>
+                </ul>
+
+                <h4>Semanas 4 a 6 (09/11 - 29/11): Engajamento e Provas Sociais</h4>
+                <h5>09/11 a 29/11:</h5>
+                <ul>
+                    <li>09/11: "Como estão as finanças do seu negócio? Tem algo que gostaria de melhorar? Compartilhe!"</li>
+                    <li>10/11 - 12/11: Envio de depoimentos de sucesso</li>
+                    <li>13/11: Vídeo 3 - "Como estabelecer um limite de compras inteligente?"</li>
+                    <li>14/11: Vídeo 4 - "Por que definir a origem e aplicação de recursos é importante?"</li>
+                    <li>15/11 - 20/11: Envio de cases práticos e exemplos de sucesso</li>
+                </ul>
+
+                <h4>Semana Final (30/11 - 06/12): Senso de Urgência e Fechamento de Carrinho</h4>
+                <h5>30/11 - 06/12:</h5>
+                <ul>
+                    <li>30/11: "Falta 1 semana para o lançamento! O desconto de 50% será revelado no dia do lançamento. Não perca essa chance! [Link para LP]."</li>
+                    <li>01/12 - 03/12: Mensagens de contagem regressiva</li>
+                    <li>04/12: "Faltam apenas 24 horas para o lançamento! O desconto de 50% será revelado amanhã."</li>
+                    <li>05/12: Contatos individuais com membros mais engajados</li>
+                    <li>06/12: "Hoje é o dia! O desconto de 50% está disponível por tempo limitado. Garanta sua vaga e venha aprender a dominar suas finanças! [Link para compra]."</li>
+                </ul>
+
+                <h4>Considerações Finais</h4>
+                <ul>
+                    <li><strong>Frequência:</strong> Mensagens curtas de 3 a 5 vezes por semana, variando entre conteúdos educativos e mensagens de urgência.</li>
+                    <li><strong>Abordagem Individual:</strong> Focar em membros engajados para aumentar a taxa de conversão.</li>
+                    <li><strong>Integração com Redes Sociais:</strong> Usar as redes sociais para enquetes que gerem engajamento e direcionem para o grupo de WhatsApp.</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="section-title">Sugestão de Cronograma</h2>
+
+    <div id="calendar-container"></div>
+
+    <div id="popup" class="popup">
+        <span class="close-popup" onclick="closePopup()">&times;</span>
+        <h2 id="popup-title"></h2>
+        <div class="popup-content"></div>
+    </div>
+
+    <script>
+        const usedPopupNumbers = new Set();
+
+        function getNextUniqueNumber() {
+            let number = 1;
+            while (usedPopupNumbers.has(number)) {
+                number++;
+            }
+            usedPopupNumbers.add(number);
+            return number;
+        }
+
+        const startDate = new Date(2024, 9, 20); // October 20, 2024 (Sunday)
+        const endDate = new Date(2024, 11, 6);   // December 6, 2024 (unchanged)
+
+        function shouldShowButtons(date) {
+            const excludedDates = [20, 21, 22]; // October 20, 21, 22
+            return date.getMonth() !== 9 || !excludedDates.includes(date.getDate());
+        }
+
+        function createCalendar() {
+            const calendarContainer = document.getElementById('calendar-container');
+            let currentDate = new Date(startDate);
+
+            while (currentDate <= endDate) {
+                const monthContainer = document.createElement('div');
+                monthContainer.className = 'month-container';
+
+                const monthHeader = document.createElement('div');
+                monthHeader.className = 'month-header';
+                monthHeader.innerHTML = `
+                    ${currentDate.toLocaleString('pt-BR', { month: 'long', year: 'numeric' })}
+                    <span class="toggle-icon">▼</span>
+                `;
+                monthHeader.onclick = toggleMonthContent;
+                monthContainer.appendChild(monthHeader);
+
+                const monthContent = document.createElement('div');
+                monthContent.className = 'month-content';
+
+                const calendar = document.createElement('div');
+                calendar.className = 'calendar';
+
+                // Add weekday headers
+                const weekdays = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+                weekdays.forEach(day => {
+                    const dayHeader = document.createElement('div');
+                    dayHeader.className = 'day-header';
+                    dayHeader.textContent = day;
+                    calendar.appendChild(dayHeader);
+                });
+
+                while (currentDate <= endDate) {
+                    const dayElement = document.createElement('div');
+                    dayElement.className = 'day';
+
+                    const dayNumber = document.createElement('div');
+                    dayNumber.className = 'day-number';
+                    dayNumber.textContent = currentDate.getDate();
+                    dayElement.appendChild(dayNumber);
+
+                    if (shouldShowButtons(currentDate)) {
+                        const whatsappButton = createPopupButton('WhatsApp', currentDate);
+                        const socialButton = createPopupButton('Redes Sociais', currentDate);
+
+                        dayElement.appendChild(whatsappButton);
+                        dayElement.appendChild(socialButton);
+                    }
+
+                    calendar.appendChild(dayElement);
+
+                    currentDate.setDate(currentDate.getDate() + 1);
+
+                    // If we've reached a new month, break the loop
+                    if (currentDate.getDate() === 1) {
+                        break;
+                    }
+                }
+
+                monthContent.appendChild(calendar);
+                monthContainer.appendChild(monthContent);
+                calendarContainer.appendChild(monthContainer);
+            }
+        }
+
+        function toggleMonthContent(event) {
+            const monthContent = event.currentTarget.nextElementSibling;
+            const toggleIcon = event.currentTarget.querySelector('.toggle-icon');
+            if (monthContent.style.display === 'block') {
+                monthContent.style.display = 'none';
+                toggleIcon.textContent = '▼';
+            } else {
+                monthContent.style.display = 'block';
+                toggleIcon.textContent = '▲';
+            }
+        }
+
+        function createPopupButton(type, date) {
+            const button = document.createElement('button');
+            button.className = 'popup-button';
+            const icon = document.createElement('i');
+            
+            const popupNumber = getNextUniqueNumber();
+            
+            if (type === 'WhatsApp') {
+                icon.className = 'fab fa-whatsapp';
+            } else if (type === 'Redes Sociais') {
+                icon.className = 'fab fa-instagram';
+            }
+            
+            button.dataset.popupNumber = popupNumber;
+            
+            button.appendChild(icon);
+            button.onclick = () => openPopup(type, date, popupNumber);
+            return button;
+        }
+
+        function openPopup(type, date, popupNumber) {
+            const popup = document.getElementById('popup');
+            const popupTitle = document.getElementById('popup-title');
+            const displayType = type === 'Redes Sociais' ? 'Instagram' : type;
+            
+            popupTitle.textContent = `${displayType} #${popupNumber}`;
+            
+            // Add content div if it doesn't exist
+            let popupContent = popup.querySelector('.popup-content');
+            if (!popupContent) {
+                popupContent = document.createElement('div');
+                popupContent.className = 'popup-content';
+                popup.insertBefore(popupContent, popup.querySelector('.close-popup').nextSibling);
+            }
+
+            // Define WhatsApp content mapping
+            const whatsappContent = {
+                1: `23/10 (Dia 1):<br>
+                    Enviar Mensagem de Boas-vindas:<br>
+                    "Bem-vindo(a) ao grupo! Prepare-se para dicas valiosas sobre gestão financeira. O lançamento do curso está chegando, com 50% de desconto! Fique ligado(a)!"<br><br>
+                    Enviar Conteúdo Inicial:<br>
+                    Texto sobre os benefícios do curso: "Você sente que as finanças da sua empresa estão desorganizadas? Neste curso, vou te ajudar a ter controle total para crescer com segurança."`,
+                2: `24/10 (Dia 2):<br>
+                    Enviar Dica Diária:<br>
+                    "Você sabia que uma precificação correta pode aumentar seu lucro? No curso, vou te ensinar a calcular o preço certo!"<br><br>
+                    Incluir CTA:<br>
+                    "Quer mais detalhes? Confira o curso completo [link da LP]."`,
+                3: `24/10 (Dia 2):<br>
+                    Enviar Dica Diária:<br>
+                    "Você sabia que uma precificação correta pode aumentar seu lucro? No curso, vou te ensinar a calcular o preço certo!"<br><br>
+                    Incluir CTA:<br>
+                    "Quer mais detalhes? Confira o curso completo [link da LP]."`,
+                5: `25/10 (Dia 3):<br>
+                    Enviar Dica Diária:<br>
+                    "Um bom fluxo de caixa é essencial para o sucesso do seu negócio! Vamos aprender a controlá-lo."`,
+                7: `26/10 (Dia 4):<br>
+                    Enviar Dica Diária:<br>
+                    "Você sabe a diferença entre custo fixo e custo variável? Vamos explorar isso juntos no curso!"`,
+                9: `27/10 (Dia 5):<br>
+                    Enviar Dica Diária:<br>
+                    "A análise de custos pode salvar seu negócio! No curso, ensino como aplicá-la."`,
+                11: `28/10 (Dia 6):<br>
+                    Enviar Dica Diária:<br>
+                    "Você já pensou em ter um planejamento financeiro? Isso pode ser o diferencial do seu negócio."`,
+                13: `29/10 (Dia 7):<br>
+                    Enviar Dica Diária:<br>
+                    "Entender os indicadores financeiros é crucial! Fique atento para aprender sobre eles no curso."`,
+                15: `30/10 (Dia 8):<br>
+                    Enviar Mensagem Motivacional de Simone:<br>
+                    "Estou empolgada para compartilhar ferramentas que ajudaram muitos empreendedores! Vamos juntos nessa jornada!"<br><br>
+                    Enviar Checklist:<br>
+                    Enviar checklist de organização financeira básica.`,
+                17: `31/10 (Dia 9):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "Você tem controle dos seus custos? Entender isso é essencial para não perder dinheiro."`,
+                19: `01/11 (Dia 10):<br>
+                    Realizar Enquete:<br>
+                    "Qual é o maior desafio financeiro que você enfrenta hoje na sua empresa?"`,
+                21: `02/11 (Dia 11):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "A gestão de despesas é uma habilidade que você precisa dominar!"`,
+                23: `03/11 (Dia 12):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "O que você precisa saber sobre crédito e financiamento? Fique atento ao curso!"`,
+                25: `04/11 (Dia 13):<br>
+                    Enviar Vídeo 1:<br>
+                    "O que é precificação inteligente?"<br><br>
+                    Incluir CTA:<br>
+                    "Fique ligado para o próximo vídeo!"`,
+                27: `05/11 (Dia 14):<br>
+                    Enviar Vídeo 2:<br>
+                    "Como o giro de estoque impacta seus lucros?"`,
+                29: `06/11 (Dia 15):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "Dicas de investimento para pequenos empresários."`,
+                31: `07/11 (Dia 16):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "A importância da reserva de emergência para empresas."`,
+                33: `08/11 (Dia 17):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "Como fazer um planejamento financeiro eficiente."`,
+                35: `09/11 (Dia 18):<br>
+                    Enviar Mensagem de Engajamento:<br>
+                    "Como estão as finanças do seu negócio? Tem algo que gostaria de melhorar? Compartilhe!"`,
+                37: `10/11 (Dia 19):<br>
+                    Enviar Depoimentos de Sucesso:<br>
+                    "Veja como o curso transformou a vida de outros empreendedores!"`,
+                39: `11/11 (Dia 20):<br>
+                    Enviar Depoimentos de Sucesso:<br>
+                    Compartilhar mais histórias de sucesso.`,
+                41: `12/11 (Dia 21):<br>
+                    Enviar Depoimentos de Sucesso:<br>
+                    Continuar a enviar depoimentos.`,
+                43: `13/11 (Dia 22):<br>
+                    Enviar Vídeo 3:<br>
+                    "Como estabelecer um limite de compras inteligente?"`,
+                45: `14/11 (Dia 23):<br>
+                    Enviar Vídeo 4:<br>
+                    "Por que definir a origem e aplicação de recursos é importante?"`,
+                47: `15/11 (Dia 24):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "Quais são os erros mais comuns na gestão financeira?"`,
+                49: `16/11 (Dia 25):<br>
+                    Enviar Conteúdo Curto:<br>
+                    "Como preparar sua empresa para a alta temporada de vendas."`,
+                51: `17/11 (Dia 26):<br>
+                    Enviar Cases Práticos:<br>
+                    Exemplos de como a gestão financeira correta transformou negócios.`,
+                53: `18/11 (Dia 27):<br>
+                    Enviar Cases Práticos:<br>
+                    Continuar a enviar exemplos práticos.`,
+                55: `19/11 (Dia 28):<br>
+                    Enviar Cases Práticos:<br>
+                    Novos exemplos de sucesso.`,
+                57: `20/11 (Dia 29):<br>
+                    Enviar Cases Práticos:<br>
+                    Finalizar os casos práticos.`,
+                77: `30/11 (Dia 30):<br>
+                    Enviar Mensagem de Urgência:<br>
+                    "Falta 1 semana para o lançamento! O desconto de 50% será revelado no dia do lançamento. Não perca essa chance! [Link para LP]."`,
+                79: `01/12 (Dia 31):<br>
+                    Enviar Contagem Regressiva:<br>
+                    "Atenção! Faltam apenas 3 dias para o lançamento! Prepare-se para o desconto!"`,
+                81: `02/12 (Dia 32):<br>
+                    Enviar Contagem Regressiva:<br>
+                    "Faltam apenas 2 dias para o lançamento! Estão prontos?"`,
+                83: `03/12 (Dia 33):<br>
+                    Enviar Contagem Regressiva:<br>
+                    "Amanhã é o grande dia! Prepare-se!"`,
+                85: `04/12 (Dia 34):<br>
+                    Enviar Mensagem de Última Chamada:<br>
+                    "Faltam apenas 24 horas para o lançamento! O desconto de 50% será revelado amanhã."`,
+                87: `05/12 (Dia 35):<br>
+                    Contato Individual:<br>
+                    A equipe entra em contato com membros mais engajados: "Olá! Vi que você está acompanhando nosso conteúdo. Posso te ajudar com algo antes do lançamento de amanhã?"`,
+                89: `06/12 (Dia 36):<br>
+                    Lançamento do Curso:<br>
+                    "Hoje é o dia! O desconto de 50% está disponível por tempo limitado. Garanta sua vaga e venha aprender a dominar suas finanças! [Link para compra]."`
+            };
+
+            // Define Instagram content mapping
+            const instagramContent = {
+                2: `23/10<br>
+                    Post de Apresentação do Curso (Feed):<br>
+                    Formato: Carrossel de imagens.<br>
+                    Conteúdo: Principais tópicos do curso (gestão financeira, precificação e giro de estoque).<br>
+                    CTA: "Quer transformar as finanças do seu negócio? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]."<br>
+                    Horário: 11h.<br><br>
+                    Stories (4 a 5 Stories):<br>
+                    Conteúdo:<br>
+                    Dica do dia sobre gestão financeira.<br>
+                    Contagem regressiva para o curso.<br>
+                    Enquete: "Você tem controle total sobre as finanças da sua empresa?"<br>
+                    CTA: "Quer transformar a gestão do seu negócio? Inscreva-se na landing page!"<br>
+                    Horário: 15h.`,
+                6: `25/10<br>
+                    Vídeo Curto de Simone (Reels):<br>
+                    Formato: 30 segundos.<br>
+                    Conteúdo: Importância de dominar as finanças empresariais.<br>
+                    CTA: "Inscreva-se na landing page e descubra como garantir 50% de desconto no dia do lançamento [Link na bio]!"<br>
+                    Horário: 11h.<br><br>
+                    Stories (4 a 5 Stories):<br>
+                    Conteúdo:<br>
+                    Dica do dia.<br>
+                    Contagem regressiva.<br>
+                    Enquete: "Você sabia que precificação correta é crucial para o sucesso do seu negócio?"<br>
+                    Horário: 15h.`,
+                10: `27/10<br>
+                    Post de Prova Social (Feed):<br>
+                    Formato: Depoimento de cliente.<br>
+                    Conteúdo: Resultados positivos de um cliente.<br>
+                    CTA: "Quer alcançar resultados como esse? Inscreva-se na landing page para garantir 50% de desconto [Link na bio]!"<br>
+                    Horário: 11h.<br><br>
+                    Stories (4 a 5 Stories):<br>
+                    Conteúdo:<br>
+                    Lembrete sobre a inscrição na landing page.<br>
+                    Enquete: "Você gostaria de receber dicas financeiras semanais?"<br>
+                    Horário: 15h.`,
+                // Continue with all other Instagram content mappings...
+                90: `06/12<br>
+                    Post de Encerramento (Feed):<br>
+                    Formato: Imagem.<br>
+                    Conteúdo: "As inscrições com desconto de 50% estão encerradas! Agradecemos a todos que se inscreveram. Fiquem ligados para novidades!"<br>
+                    CTA: "Continue acompanhando nossas redes para mais dicas financeiras."<br>
+                    Horário: 11h.<br><br>
+                    Stories:<br>
+                    Conteúdo:<br>
+                    Agradecimento aos inscritos.<br>
+                    Teaser sobre o que vem a seguir.<br>
+                    Horário: 15h.`
+            };
+
+            // Modify the content setting section to include Instagram content
+            if (type === 'WhatsApp' && whatsappContent[popupNumber]) {
+                popupContent.innerHTML = whatsappContent[popupNumber];
+            } else if (type === 'Redes Sociais' && instagramContent[popupNumber]) {
+                popupContent.innerHTML = instagramContent[popupNumber];
+            } else {
+                popupContent.innerHTML = '';
+            }
+
+            popup.style.display = 'block';
+            popup.dataset.currentPopupNumber = popupNumber;
+        }
+
+        function closePopup() {
+            const popup = document.getElementById('popup');
+            popup.style.display = 'none';
+        }
+
+        function toggleStrategy(type) {
+            const content = document.getElementById(`${type}-content`);
+            const button = content.previousElementSibling;
+            const allContents = document.querySelectorAll('.strategy-content');
+            const allButtons = document.querySelectorAll('.strategy-button');
+
+            allContents.forEach(item => {
+                if (item !== content) {
+                    item.style.display = 'none';
+                }
+            });
+
+            allButtons.forEach(item => {
+                if (item !== button) {
+                    item.classList.remove('active');
+                }
+            });
+
+            if (content.style.display === 'block') {
+                content.style.display = 'none';
+                button.classList.remove('active');
+            } else {
+                content.style.display = 'block';
+                button.classList.add('active');
+            }
+        }
+
+        createCalendar();
+    </script>
+</body>
+</html>
